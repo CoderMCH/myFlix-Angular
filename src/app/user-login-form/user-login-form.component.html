@@ -1,7 +1,7 @@
 <!-- src/app/user-registration-form/user-registration-form.component.html -->
 <mat-card>
     <mat-card-header>
-    <mat-card-title>Sign Up!</mat-card-title>
+    <mat-card-title>Log In!</mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <form>
@@ -25,34 +25,15 @@
                     required
                 >
             </mat-form-field>
-            <mat-form-field>
-                <input
-                    matInput
-                    [(ngModel)]="userData.email"
-                    type = "email"
-                    placeholder="Email"
-                    name="Email"
-                    required
-                >
-            </mat-form-field>
-            <mat-form-field>
-                <input
-                    matInput
-                    [(ngModel)]="userData.birthday"
-                    type = "date"
-                    placeholder="Birthday"  
-                    name="Birthday"
-                >
-            </mat-form-field>
         </form>
     </mat-card-content>
     <mat-card-actions>
         <button
         mat-raised-button
-        (click)="registerUser()"
+        (click)="logInUser()"
         color="primary"
         >
-        Sign Up
+        Log In
         </button>
     </mat-card-actions>
 </mat-card>
