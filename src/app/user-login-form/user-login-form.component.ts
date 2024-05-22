@@ -3,6 +3,7 @@ import { FetchApiDataService } from '../fetch-api-data.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { UserRegistrationFormComponent } from '../user-registration-form/user-registration-form.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-user-login-form',
@@ -15,7 +16,8 @@ export class UserLoginFormComponent implements OnInit {
     constructor(
         public fetchApiData: FetchApiDataService,
         public dialogRef: MatDialogRef<UserRegistrationFormComponent>,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        public router: Router
     ) { }
     
     ngOnInit(): void {}
@@ -33,7 +35,8 @@ export class UserLoginFormComponent implements OnInit {
                 email: res.user.email,
                 token: res.token
             }
-            localStorage.setItem("user", JSON.stringify(user))
+            localStorage.setItem("user", JSON.stringify(user));
+            this.router.navigate(["movies"]);
         }, res => {
             this.snackBar.open("Login fail", "OK", {
                 duration: 2000

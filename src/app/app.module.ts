@@ -19,6 +19,15 @@ import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomeViewComponent } from './welcome-view/welcome-view.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
+// src/app/app.module.ts
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'welcome', component: WelcomeViewComponent },
+  { path: 'movies', component: MovieCardComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+];
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,6 +38,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     UserProfileComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
