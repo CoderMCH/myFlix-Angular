@@ -48,7 +48,7 @@ export class FetchApiDataService {
     public getAllMovies(): Observable<any> {
         return this.http.get(apiUrl + '/movies', {headers: new HttpHeaders(
         {
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -57,7 +57,7 @@ export class FetchApiDataService {
     public getMovieWithTitle(title: string): Observable<any> {
         return this.http.get(apiUrl + `/movie/${title}`, {headers: new HttpHeaders(
         {
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -66,7 +66,7 @@ export class FetchApiDataService {
     public getDirector(directorName: string): Observable<any> {
         return this.http.get(apiUrl + `/director/${directorName}`, {headers: new HttpHeaders(
         {
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -75,7 +75,7 @@ export class FetchApiDataService {
     public getUserList(): Observable<any> {
         return this.http.get(apiUrl + `/users`, {headers: new HttpHeaders(
         {
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -84,7 +84,7 @@ export class FetchApiDataService {
     public addFavoriteMovie(userID: string, title: string): Observable<any> {
         return this.http.post(apiUrl + `/user/${userID}/${title}`, {headers: new HttpHeaders(
         {
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -93,7 +93,7 @@ export class FetchApiDataService {
     public deleteFavoriteMovie(userID: string, title: string): Observable<any> {
         return this.http.delete(apiUrl + `/user/${userID}/${title}`,
         {headers: new HttpHeaders({
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -102,7 +102,7 @@ export class FetchApiDataService {
     public editUser(userDetails: any): Observable<any> {
         return this.http.put(apiUrl + `/user/${userDetails.id}`, userDetails,
         {headers: new HttpHeaders({
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(
             map(this.extractResponseData), catchError(this.handleError)
         );
@@ -112,7 +112,7 @@ export class FetchApiDataService {
         const body = JSON.stringify({"id": userID});
         return this.http.delete(apiUrl + `/user`,
         {headers: new HttpHeaders({
-            Authorization: `Bearer ${this.getToken}`,
+            Authorization: `Bearer ${this.getToken()}`,
         }), body: body
         }).pipe(
             map(this.extractResponseData), catchError(this.handleError)
