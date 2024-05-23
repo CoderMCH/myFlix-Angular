@@ -18,13 +18,16 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
 import { MovieCardComponent } from './movie-card/movie-card.component';
 import { WelcomeViewComponent } from './welcome-view/welcome-view.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatIconModule } from '@angular/material/icon';
 
 // src/app/app.module.ts
 import { RouterModule, Routes } from '@angular/router';
+import { MessageBoxComponent } from './message-box/message-box.component';
 
 const appRoutes: Routes = [
   { path: 'welcome', component: WelcomeViewComponent },
   { path: 'movies', component: MovieCardComponent },
+  { path: 'profile', component: UserProfileComponent },
   { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
 ];
 
@@ -49,7 +52,8 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [
     provideAnimationsAsync()
