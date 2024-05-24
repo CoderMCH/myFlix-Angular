@@ -38,7 +38,8 @@ const appRoutes: Routes = [
     UserLoginFormComponent,
     MovieCardComponent,
     WelcomeViewComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    MessageBoxComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),

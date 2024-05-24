@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FetchApiDataService } from '../fetch-api-data.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
+import { MessageBoxComponent } from '../message-box/message-box.component';
 
 @Component({
     selector: 'app-movie-card',
@@ -48,13 +49,30 @@ export class MovieCardComponent implements OnInit {
     }
 
     showGenre(movie: any): void {
-        // this.dialog.open()
-        console.log(movie.genre)
+        this.dialog.open(MessageBoxComponent, {
+            data: {
+                title: String(movie.genre.type).toUpperCase(),
+                content: movie.genre.description
+            },
+            width: "400px"
+        })
     }
     showDirector(movie: any): void {
-        console.log(movie.director)
+        this.dialog.open(MessageBoxComponent, {
+            data: {
+                title: movie.director.name,
+                content: movie.genre.description
+            },
+            width: "400px"
+        })
     }
     showDetail(movie: any): void {
-        console.log(movie.description)
+        this.dialog.open(MessageBoxComponent, {
+            data: {
+                title: movie.title,
+                content: movie.description
+            },
+            width: "400px"
+        })
     }
 }
