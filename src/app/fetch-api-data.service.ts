@@ -54,6 +54,16 @@ export class FetchApiDataService {
         );
     }
 
+    public getMovieWithID(id: string): Observable<any> {
+        let t = JSON.parse(localStorage.getItem("user") || "").token
+        return this.http.get(apiUrl + `/movieid/${id}`, {headers: new HttpHeaders(
+        {
+            Authorization: `Bearer ${this.getToken()}`,
+        })}).pipe(
+            map(this.extractResponseData), catchError(this.handleError)
+        );
+    }
+
     public getMovieWithTitle(title: string): Observable<any> {
         return this.http.get(apiUrl + `/movie/${title}`, {headers: new HttpHeaders(
         {
@@ -74,6 +84,15 @@ export class FetchApiDataService {
 
     public getUserList(): Observable<any> {
         return this.http.get(apiUrl + `/users`, {headers: new HttpHeaders(
+        {
+            Authorization: `Bearer ${this.getToken()}`,
+        })}).pipe(
+            map(this.extractResponseData), catchError(this.handleError)
+        );
+    }
+
+    public getUserByID(id: string): Observable<any> {
+        return this.http.get(apiUrl + `/user/${id}`, {headers: new HttpHeaders(
         {
             Authorization: `Bearer ${this.getToken()}`,
         })}).pipe(

@@ -29,10 +29,9 @@ export class UserLoginFormComponent implements OnInit {
                 duration: 2000
             });
             let user = {
+                ...res.user,
                 id: res.user._id,
-                username: res.user.username,
-                birthday: res.user.birthday,
-                email: res.user.email,
+                password: this.userData.password,
                 token: res.token
             }
             localStorage.setItem("user", JSON.stringify(user));
