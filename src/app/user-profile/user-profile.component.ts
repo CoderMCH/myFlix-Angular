@@ -73,4 +73,9 @@ export class UserProfileComponent implements OnInit {
       console.error(err)
     })
   }
+  
+  logout(): void {
+    this.router.navigate(["welcome"]);
+    localStorage.removeItem("user");
+  }
 }
