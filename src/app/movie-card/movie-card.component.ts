@@ -24,9 +24,14 @@ export class MovieCardComponent implements OnInit {
     getMovies(): void {
         this.fetchApiData.getAllMovies().subscribe(res => {
             this.movies = res;
+
+            let user = JSON.parse(localStorage.getItem("user") || "");
+            this.movies.forEach((movie: any) => {
+                movie.isFavorite = user.favoriteMovies.includes(movie._id);
+            })
             return this.movies;
-        }, res => {
-            console.error(res)
+        }, err => {
+            console.error(err)
         })
     }
 
@@ -44,22 +49,30 @@ export class MovieCardComponent implements OnInit {
         let icon = document.getElementById(`${movie._id}-favorite-icon`);
 
         if (user.favoriteMovies.includes(movie._id)) {
-            // this.fetchApiData.deleteFavoriteMovie(user.id, movie.title).subscribe(res => {
-            //     console.log("add success")
-            // }, res => {
-            //     console.error(res)
-            // })
-            let i = user.favoriteMovies.findIndex((item: any) => item == movie._id);
-            user.favoriteMovies.splice(i, 1);
-            icon?.setAttribute("fontIcon", "favorite_border");
+            this.fetchApiData.deleteFavoriteMovie(user.id, movie.title).subscribe(res => {
+                icon?.setAttribute("fontIcon", "favorite_border");
+
+                console.log("del success")
+                console.log(res);
+                user.favoriteMovies = res.favoriteMovies;
+                localStorage.setItem("user", JSON.stringify(user));
+            }, err => {
+                console.error(err)
+            })
         } else {
-            // this.fetchApiData.addFavoriteMovie(user.id, movie.title).subscribe(res => {
-            //     console.log("add success")
-            // }, res => {
-            //     console.error(res)
-            // })
-            user.favoriteMovies.push(movie._id);
             icon?.setAttribute("fontIcon", "favorite");
+            user.favoriteMovies.push(movie._id);
+            // addFavoriteMovie return unauth, debugging
+            // this.fetchApiData.addFavoriteMovie(user.id, movie.title).subscribe(res => {
+            //     icon?.setAttribute("fontIcon", "favorite");
+
+            //     console.log("add success")
+            //     console.log(res);
+            //     user.favoriteMovies = res.favoriteMovies;
+            //     localStorage.setItem("user", JSON.stringify(user));
+            // }, err => {
+            //     console.error(err)
+            // })
         }
         localStorage.setItem("user", JSON.stringify(user));
     }
