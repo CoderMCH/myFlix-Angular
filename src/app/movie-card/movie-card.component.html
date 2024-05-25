@@ -33,7 +33,9 @@
                     Synopsis
                 </button>
                 <mat-icon
-                    (click)="addFavorite(movie.title)"
+                    fontIcon="favorite_border"
+                    id="{{movie._id}}-favorite-icon"
+                    (click)="modifyFavoriteMovies(movie)"
                 >favorite_border</mat-icon>
             </mat-card-actions>
         </mat-card>

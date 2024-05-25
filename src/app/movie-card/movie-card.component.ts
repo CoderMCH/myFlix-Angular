@@ -39,13 +39,29 @@ export class MovieCardComponent implements OnInit {
         this.router.navigate(["profile"]);
     }
 
-    addFavorite(title: any): void {
+    modifyFavoriteMovies(movie: any): void {
         let user = JSON.parse(localStorage.getItem("user") || "");
-        this.fetchApiData.addFavoriteMovie(user.id, title).subscribe(res => {
-            console.log("add success")
-        }, res => {
-            console.error(res)
-        })
+        let icon = document.getElementById(`${movie._id}-favorite-icon`);
+
+        if (user.favoriteMovies.includes(movie._id)) {
+            // this.fetchApiData.deleteFavoriteMovie(user.id, movie.title).subscribe(res => {
+            //     console.log("add success")
+            // }, res => {
+            //     console.error(res)
+            // })
+            let i = user.favoriteMovies.findIndex((item: any) => item == movie._id);
+            user.favoriteMovies.splice(i, 1);
+            icon?.setAttribute("fontIcon", "favorite_border");
+        } else {
+            // this.fetchApiData.addFavoriteMovie(user.id, movie.title).subscribe(res => {
+            //     console.log("add success")
+            // }, res => {
+            //     console.error(res)
+            // })
+            user.favoriteMovies.push(movie._id);
+            icon?.setAttribute("fontIcon", "favorite");
+        }
+        localStorage.setItem("user", JSON.stringify(user));
     }
 
     showGenre(movie: any): void {
