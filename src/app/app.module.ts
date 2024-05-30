@@ -15,14 +15,34 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserRegistrationFormComponent } from './user-registration-form/user-registration-form.component';
 import { UserLoginFormComponent } from './user-login-form/user-login-form.component';
+import { MovieCardComponent } from './movie-card/movie-card.component';
+import { WelcomeViewComponent } from './welcome-view/welcome-view.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { MatIconModule } from '@angular/material/icon';
+
+// src/app/app.module.ts
+import { RouterModule, Routes } from '@angular/router';
+import { MessageBoxComponent } from './message-box/message-box.component';
+
+const appRoutes: Routes = [
+  { path: 'welcome', component: WelcomeViewComponent },
+  { path: 'movies', component: MovieCardComponent },
+  { path: 'profile', component: UserProfileComponent },
+  { path: '', redirectTo: 'welcome', pathMatch: 'prefix' },
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     UserRegistrationFormComponent,
-    UserLoginFormComponent
+    UserLoginFormComponent,
+    MovieCardComponent,
+    WelcomeViewComponent,
+    UserProfileComponent,
+    MessageBoxComponent
   ],
   imports: [
+    RouterModule.forRoot(appRoutes),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -33,7 +53,8 @@ import { UserLoginFormComponent } from './user-login-form/user-login-form.compon
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule
   ],
   providers: [
     provideAnimationsAsync()
