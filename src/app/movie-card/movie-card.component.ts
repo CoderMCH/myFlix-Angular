@@ -60,19 +60,19 @@ export class MovieCardComponent implements OnInit {
                 console.error(err)
             })
         } else {
-            icon?.setAttribute("fontIcon", "favorite");
-            user.favoriteMovies.push(movie._id);
+            // icon?.setAttribute("fontIcon", "favorite");
+            // user.favoriteMovies.push(movie._id);
             // addFavoriteMovie return unauth, debugging
-            // this.fetchApiData.addFavoriteMovie(user.id, movie.title).subscribe(res => {
-            //     icon?.setAttribute("fontIcon", "favorite");
+            this.fetchApiData.addFavoriteMovie(user.id, movie.title).subscribe(res => {
+                icon?.setAttribute("fontIcon", "favorite");
 
-            //     console.log("add success")
-            //     console.log(res);
-            //     user.favoriteMovies = res.favoriteMovies;
-            //     localStorage.setItem("user", JSON.stringify(user));
-            // }, err => {
-            //     console.error(err)
-            // })
+                console.log("add success")
+                console.log(res);
+                user.favoriteMovies = res.favoriteMovies;
+                localStorage.setItem("user", JSON.stringify(user));
+            }, err => {
+                console.error(err)
+            })
         }
         localStorage.setItem("user", JSON.stringify(user));
     }
