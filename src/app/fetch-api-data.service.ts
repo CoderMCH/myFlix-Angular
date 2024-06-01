@@ -32,17 +32,30 @@ export class FetchApiDataService {
         return throwError('Something bad happened; please try again later.');
     }
 
-    // Making the api call for the user registration endpoint
+    /**
+     * create new user
+     * @param {Object} userDetails must include username, password and password. Optional: birthday
+     * @returns 
+     */
     public userRegistration(userDetails: any): Observable<any> {
         return this.http.post(apiUrl + '/user', userDetails)
             .pipe(catchError(this.handleError));
     }
 
+    /**
+     * login
+     * @param {Object} userDetails must include username and password
+     * @returns 
+     */
     public userLogin(userDetails: any): Observable<any> {
         return this.http.post(apiUrl + `/login?username=${userDetails.username}&password=${userDetails.password}`, userDetails)
             .pipe(map(this.extractResponseData), catchError(this.handleError))
     }
 
+    /**
+     * get all movies
+     * @returns if token is false, status 401 & text "unauthorized", else return array of movie object
+     */
     public getAllMovies(): Observable<any> {
         return this.http.get(apiUrl + '/movies', {headers: new HttpHeaders(
         {
@@ -52,6 +65,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * get movie with specific id
+     * @param {string} id 
+     * @returns if token is false, status 401 & text "unauthorized". if movie exists, status 200 & movie object. if movie doesn't exist, status 400 & text "No such movie"
+     */
     public getMovieWithID(id: string): Observable<any> {
         let t = JSON.parse(localStorage.getItem("user") || "").token
         return this.http.get(apiUrl + `/movieid/${id}`, {headers: new HttpHeaders(
@@ -62,6 +80,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * get movie with title
+     * @param {string} title Movie's title
+     * @returns if token is false, status 401 & text "unauthorized". if movie exists, status 200 & movie object. if movie doesn't exist, status 400 & text "No such movie"
+     */
     public getMovieWithTitle(title: string): Observable<any> {
         return this.http.get(apiUrl + `/movie/${title}`, {headers: new HttpHeaders(
         {
@@ -71,6 +94,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * get director with name
+     * @param {string} directorName 
+     * @returns if token is false, status 401 & text "unauthorized". if director exists, status 200 & director object. if director doesn't exist, status 400 & text "No such director"
+     */
     public getDirector(directorName: string): Observable<any> {
         return this.http.get(apiUrl + `/director/${directorName}`, {headers: new HttpHeaders(
         {
@@ -80,6 +108,10 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * get all user
+     * @returns if token is false, status 401 & text "unauthorized", else return array of user objects
+     */
     public getUserList(): Observable<any> {
         return this.http.get(apiUrl + `/users`, {headers: new HttpHeaders(
         {
@@ -89,6 +121,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * get user with id
+     * @param {string} id 
+     * @returns if token is false, status 401 & text "unauthorized". if user exists, status 200 & user object. if user doesn't exist, status 400
+     */
     public getUserByID(id: string): Observable<any> {
         return this.http.get(apiUrl + `/user/${id}`, {headers: new HttpHeaders(
         {
@@ -98,6 +135,12 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * add movie to user's favorite list
+     * @param userID 
+     * @param title movie's title
+     * @returns if token is false, status 401 & text "unauthorized". if add movie success, status 200 & user object. if movie doesn't exist, status 400 & text "No such movie"
+     */
     public addFavoriteMovie(userID: string, title: string): Observable<any> {
         return this.http.post(apiUrl + `/user/${userID}/${title}`, {}, {headers: new HttpHeaders(
         {
@@ -107,6 +150,12 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * delete a movie from user's favorite list
+     * @param userID 
+     * @param title 
+     * @returns if token is false, status 401 & text "unauthorized". if delete movie success, status 200 & user object.
+     */
     public deleteFavoriteMovie(userID: string, title: string): Observable<any> {
         return this.http.delete(apiUrl + `/user/${userID}/${title}`,
         {headers: new HttpHeaders({
@@ -116,6 +165,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * change user's details
+     * @param userDetails must include all the fields of user object
+     * @returns if token is false, status 401 & text "unauthorized". if update user's details success, status 200 & user object.
+     */
     public editUser(userDetails: any): Observable<any> {
         return this.http.put(apiUrl + `/user/${userDetails.id}`, userDetails,
         {headers: new HttpHeaders({
@@ -125,6 +179,11 @@ export class FetchApiDataService {
         );
     }
 
+    /**
+     * delete user
+     * @param userID 
+     * @returns if token is false, status 401 & text "unauthorized". if delete user success, status 200 & text "${username} was deleted"
+     */
     public deleteUser(userID: string): Observable<any> {
         const body = JSON.stringify({"id": userID});
         return this.http.delete(apiUrl + `/user`,
